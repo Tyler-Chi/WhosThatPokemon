@@ -17,7 +17,7 @@ class MainArea extends Component {
     }
 
     componentWillMount(){
-        axios.get('https://pokeapi.co/api/v2/pokemon/5/')
+        axios.get('https://pokeapi.co/api/v2/pokemon/25/')
             .then(res => {
                 this.setState({currentPokemon: res.data})
             })
