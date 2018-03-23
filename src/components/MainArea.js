@@ -41,10 +41,28 @@ class MainArea extends Component {
         if (this.checkCorrect(this.state.currentPokemon.name, this.state.guess)){
             let newStreak = this.state.totalCorrect + 1;
             this.setState({totalCorrect: newStreak});
+            this.setState({message: 'nice work! you are a true pokemon master.'})
         } else {
-            console.log('wrong answer')
+            
+            this.setState({totalCorrect: 0})
+            this.setState({message: "lol did u even have a childhood?"})
         }
+
+        setTimeout(this.newPokemon.bind(this), 2000)
         
+    }
+
+    newPokemon(){
+
+        this.setState({loading: true , guess: "" , message: "", currentPokemon: null});
+
+        let newPokemon = Math.floor(125 * Math.random());
+
+        axios.get('https://pokeapi.co/api/v2/pokemon/' + newPokemon + '/')
+            .then(res => {
+                this.setState({ currentPokemon: res.data })
+            })
+            .catch(err => console.log(err));
     }
 
     checkCorrect(string1,string2){
@@ -83,6 +101,9 @@ class MainArea extends Component {
                 <View>
                     <Text>
                         Current Streak: {this.state.totalCorrect}
+                    </Text>
+                    <Text>
+                        {this.state.message}
                     </Text>
                 </View>
 
