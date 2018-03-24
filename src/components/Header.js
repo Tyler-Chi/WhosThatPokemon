@@ -7,7 +7,7 @@ class Header extends Component {
 
         return (
             <View style={styles.viewArea}>
-                <Text>
+                <Text style={styles.text}>
                     WHO'S THAT POKEMON?
                 </Text>
             </View>
@@ -17,11 +17,19 @@ class Header extends Component {
 
 const styles = {
     viewArea: {
+        backgroundColor: '#bcc5d3',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0 ,height: 2},
         marginTop: 20,
         paddingTop: 10,
         paddingBottom: 10,
-        alignItems: 'center',
-        backgroundColor: '#abb8ce'
+        alignItems: 'center'
+    
+    },
+    text: {
+        fontFamily: 'IowanOldStyle-Bold'
     }
 }
 

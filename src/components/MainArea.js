@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text , ActivityIndicator , Image , TextInput , TouchableOpacity } from 'react-native';
+import { ImageBackground, View, Text , ActivityIndicator , Image , TextInput , TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import MessageArea from './MessageArea';
 
 
 class MainArea extends Component {
@@ -27,7 +28,7 @@ class MainArea extends Component {
     renderImageArea(){
         if(this.state.currentPokemon === null){
             return (
-                <ActivityIndicator size={'large'} color={'red'} />
+                <ActivityIndicator style={ styles.spinner }size={'large'} color={'red'} />
             )
         } else {
             return (
@@ -79,10 +80,18 @@ class MainArea extends Component {
 
     render(){
 
+        const backgroundUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFDglUICWail07IX29Q7sZbIG_9H4V36XdKX4xxJMMah3pXd9SpQ';
+
+
         console.log(this.state)
 
         return (
+            <ImageBackground
+                source={{ uri: backgroundUrl }}
+                style={{ marginTop: 10,height: '80%', width: '100%', }}
+            >
             <View>
+                <Image />
                 <View style={styles.imageArea}>
                     {this.renderImageArea()}
                 </View>
@@ -98,16 +107,11 @@ class MainArea extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <View>
-                    <Text>
-                        Current Streak: {this.state.totalCorrect}
-                    </Text>
-                    <Text>
-                        {this.state.message}
-                    </Text>
-                </View>
+                <MessageArea message={this.state.message} totalCorrect={this.state.totalCorrect}/>
 
             </View>
+
+            </ImageBackground>
         )
     }
 
@@ -117,13 +121,15 @@ const styles = {
     imageArea: {
         height: 350,
         width: null,
-        backgroundColor: 'blue',
+        // backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center'
     },
     imageStyle: {
-        height: 300,
-        width: 300
+        height: 400,
+        width: 400,
+        marginLeft: 35,
+        marginTop: 30
     },
     inputArea: {
         width: null,
@@ -134,7 +140,12 @@ const styles = {
         height: 20,
         width: 300,
         borderColor: 'black',
-        borderWidth: 1
+        borderWidth: 1,
+        marginTop: 90
+    },
+    spinner: {
+        marginLeft: 3,
+        marginTop: 30
     }
 }
 
