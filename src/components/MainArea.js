@@ -3,6 +3,8 @@ import { ImageBackground, View, Text , ActivityIndicator , Image , TextInput , T
 import axios from 'axios';
 import MessageArea from './MessageArea';
 
+const test = require('../Test');
+
 
 class MainArea extends Component {
 
@@ -18,6 +20,11 @@ class MainArea extends Component {
     }
 
     componentWillMount(){
+
+
+        test.test1();
+
+
         axios.get('https://pokeapi.co/api/v2/pokemon/25/')
             .then(res => {
                 this.setState({currentPokemon: res.data})
@@ -141,7 +148,8 @@ const styles = {
         width: 300,
         borderColor: 'black',
         borderWidth: 1,
-        marginTop: 90
+        marginTop: 90,
+        textAlign: 'center'
     },
     spinner: {
         marginLeft: 3,
