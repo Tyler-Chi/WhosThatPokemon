@@ -10,11 +10,11 @@ class MessageArea extends Component {
     render(){
         return (
             <View style={styles.messageArea}>
-                <Text>
+                <Text style={styles.textArea}>
                     Current Streak : {this.props.totalCorrect}
                 </Text>
 
-                <Text>
+                <Text style={styles.textArea}>
                     {this.props.message}
                 </Text>
 
@@ -27,6 +27,10 @@ const styles = {
     messageArea: {
         width: null,
         alignItems: 'center'
+    },
+    textArea: {
+        fontFamily: 'AvenirNextCondensed-Bold',
+        letterSpacing: 1
     }
 }
 

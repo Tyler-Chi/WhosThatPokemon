@@ -17,19 +17,20 @@ class Header extends Component {
 
 const styles = {
     viewArea: {
-        backgroundColor: '#bcc5d3',
+        backgroundColor: '#F8F8F8',
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0 ,height: 2},
+        shadowOpacity: 0.5,
+        shadowOffset: { width: 0 , height: 2},
         marginTop: 20,
         paddingTop: 10,
-        paddingBottom: 10,
-        alignItems: 'center'
+        paddingBottom: 10
     
     },
     text: {
-        fontFamily: 'IowanOldStyle-Bold'
+        fontFamily: 'AvenirNextCondensed-Bold',
+        letterSpacing: 3,
     }
 }
 

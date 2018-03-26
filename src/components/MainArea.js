@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ImageBackground, View, Text , ActivityIndicator , Image , TextInput , TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import MessageArea from './MessageArea';
+import Ripple from 'react-native-material-ripple';
 
 const test = require('../Test');
 
@@ -28,6 +29,7 @@ class MainArea extends Component {
         axios.get('https://pokeapi.co/api/v2/pokemon/25/')
             .then(res => {
                 this.setState({currentPokemon: res.data})
+                this.setState({message: ''});
             })
             .catch(err => console.log(err));
     }
@@ -45,11 +47,18 @@ class MainArea extends Component {
     }
 
     handleSubmit(){
+
+        if (this.state.currentPokemon === null){
+            this.setState({message: 'Please wait for app to load next Pokemon :)'});
+            return;
+        }
        
         if (this.checkCorrect(this.state.currentPokemon.name, this.state.guess)){
             let newStreak = this.state.totalCorrect + 1;
             this.setState({totalCorrect: newStreak});
             this.setState({message: 'nice work! you are a true pokemon master.'})
+
+            setTimeout(this.newPokemon.bind(this), 2000)
         } else {
             
             this.setState({totalCorrect: 0})
@@ -61,9 +70,11 @@ class MainArea extends Component {
             let output = "Did you even have a childhood...? That's: " + pokeName;
 
             this.setState({message: output })
+
+            setTimeout(this.newPokemon.bind(this), 4000)
         }
 
-        setTimeout(this.newPokemon.bind(this), 2000)
+        
         
     }
 
@@ -71,7 +82,7 @@ class MainArea extends Component {
 
         this.setState({loading: true , guess: "" , message: "", currentPokemon: null});
 
-        let newPokemon = Math.floor(125 * Math.random());
+        let newPokemon = Math.floor(151 * Math.random());
 
         axios.get('https://pokeapi.co/api/v2/pokemon/' + newPokemon + '/')
             .then(res => {
@@ -116,9 +127,10 @@ class MainArea extends Component {
                         value={this.state.guess}
                         onChangeText = {guess => this.setState({guess})}
                     />
-                    <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
-                        <Text> Submit Answer </Text>
+                    <TouchableOpacity style = {styles.buttonStyle} onPress={this.handleSubmit.bind(this)}>
+                        <Text style = {styles.textArea}> Submit Answer </Text>
                     </TouchableOpacity>
+
                 </View>
 
                 <MessageArea currentPokemon= {this.state.currentPokemon} message={this.state.message} totalCorrect={this.state.totalCorrect}/>
@@ -132,6 +144,22 @@ class MainArea extends Component {
 }
 
 const styles = {
+    textArea: {
+        fontFamily: 'AvenirNextCondensed-Bold',
+        letterSpacing: 1
+    },
+    buttonStyle: {
+        marginTop: 10,
+        marginBottom: 8,
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: 'black',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 2,
+        paddingBottom: 2,
+        backgroundColor: '#ffb363'
+    },
     imageArea: {
         height: 350,
         width: null,
@@ -151,12 +179,16 @@ const styles = {
 
     },
     textInputArea: {
-        height: 20,
+        fontSize: 20,
+        height: 30,
         width: 300,
         borderColor: 'black',
         borderWidth: 1,
         marginTop: 90,
-        textAlign: 'center'
+        textAlign: 'center',
+        borderRadius: 2,
+        paddingTop: 5,
+        paddingBottom: 5
     },
     spinner: {
         marginLeft: 3,
