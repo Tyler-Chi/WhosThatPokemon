@@ -53,7 +53,14 @@ class MainArea extends Component {
         } else {
             
             this.setState({totalCorrect: 0})
-            this.setState({message: "lol did u even have a childhood?"})
+
+            let pokeName = this.state.currentPokemon.name;
+
+            pokeName = pokeName[0].toUpperCase() + pokeName.slice(1);
+            
+            let output = "Did you even have a childhood...? That's: " + pokeName;
+
+            this.setState({message: output })
         }
 
         setTimeout(this.newPokemon.bind(this), 2000)
@@ -114,7 +121,7 @@ class MainArea extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <MessageArea message={this.state.message} totalCorrect={this.state.totalCorrect}/>
+                <MessageArea currentPokemon= {this.state.currentPokemon} message={this.state.message} totalCorrect={this.state.totalCorrect}/>
 
             </View>
 
